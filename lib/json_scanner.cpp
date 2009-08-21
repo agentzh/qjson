@@ -193,13 +193,13 @@ int JSonScanner::yylex(YYSTYPE* yylval, yy::location *yylloc)
 
       *yylval = QVariant(sequence);
       //qDebug() << "JSonScanner::yylex - yy::json_parser::token::WORD ("
-               << yylval->toString() << ")";
+               //<< yylval->toString() << ")";
       return yy::json_parser::token::WORD;
     }
     else {
       *yylval = QVariant(QString(ch));
       //qDebug() << "JSonScanner::yylex - yy::json_parser::token::WORD ("
-             << yylval->toString() << ")";
+             //<< yylval->toString() << ")";
       return yy::json_parser::token::WORD;
     }
   }
@@ -211,7 +211,7 @@ int JSonScanner::yylex(YYSTYPE* yylval, yy::location *yylloc)
   else if (isalnum(ch) != 0) {
     *yylval = QVariant(QByteArray(&ch, 1));
     //qDebug() << "JSonScanner::yylex - yy::json_parser::token::WORD ("
-             << ch << ")";
+             //<< ch << ")";
     return yy::json_parser::token::WORD;
   }
   else if (ch == ':') {
