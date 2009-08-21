@@ -27,13 +27,9 @@ isEmpty(OUTPUT_DIR) {
     CONFIG(debug):OUTPUT_DIR=$$PWD
 }
 
-# QT+=xml network webkit
-#QT_INSTALL_PREFIX=/a/b/c
 QMAKE_RPATHDIR = $$OUTPUT_DIR/lib $$QMAKE_RPATHDIR
-#solibs.output = "/a/b/c"
-solibs.files = libQJson.so
-solibs.path = $$OUTPUT_DIR
-INSTALLS += solibs
+target.path = $$OUTPUT_DIR/lib
+INSTALLS += target
 
 DEFINES += USE_SYSTEM_MALLOC
 
