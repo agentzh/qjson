@@ -71,9 +71,9 @@ namespace yy
 #include "location.hh"
 
 /* Enabling traces.  */
-//#ifndef YYDEBUG
-//# define YYDEBUG 1
-//#endif
+#ifndef YYDEBUG
+# define YYDEBUG 0
+#endif
 
 /* Enabling verbose error messages.  */
 #ifdef YYERROR_VERBOSE

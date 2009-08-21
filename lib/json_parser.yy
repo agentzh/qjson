@@ -43,7 +43,7 @@
 
 %locations
 
-%debug
+
 %error-verbose
 
 %token END 0 "end of file"
