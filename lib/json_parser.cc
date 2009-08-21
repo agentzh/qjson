@@ -387,7 +387,7 @@ namespace yy
 #line 77 "json_parser.yy"
     {
               driver->m_result = (yysemantic_stack_[(1) - (1)]);
-              qDebug() << "json_parser - parsing finished";
+              //qDebug() << "json_parser - parsing finished";
             ;}
     break;
 
@@ -404,8 +404,8 @@ namespace yy
   case 5:
 #line 85 "json_parser.yy"
     {
-            qDebug()<< "json_parser - syntax error found, "
-                    << "forcing exit";
+            //qDebug()<< "json_parser - syntax error found, "
+                    //<< "forcing exit";
             YYABORT;
           ;}
     break;
@@ -1076,8 +1076,8 @@ int yy::yylex(YYSTYPE *yylval, yy::location *yylloc, JSonDriver* driver)
   char buff [50];
   snprintf (buff, 50 * sizeof (char), "%i", ret);
 
-  qDebug() << "json_parser::yylex - calling scanner yylval==|" 
-           << yylval->toString() << "|, ret==|" << buff << "|";
+  //qDebug() << "json_parser::yylex - calling scanner yylval==|" 
+           //<< yylval->toString() << "|, ret==|" << buff << "|";
   
   return ret;
 }
