@@ -11,16 +11,7 @@ CONFIG += qt warn_on uitools dll
 CONFIG += build_all release
 #DESTDIR = $$PWD
 
-#CONFIG += debug_and_release build_all
-
-#CONFIG(debug, debug|release) {
-   #TARGET = debug_binary
-#} else {
-   #TARGET = release_binary
-#}
-
 #BASE_DIR = $$PWD
-#BASE_DIR = '/sabf'
 
 isEmpty(OUTPUT_DIR) {
     CONFIG(release):OUTPUT_DIR=$$PWD
@@ -30,6 +21,10 @@ isEmpty(OUTPUT_DIR) {
 QMAKE_RPATHDIR = $$OUTPUT_DIR/lib $$QMAKE_RPATHDIR
 target.path = $$OUTPUT_DIR/lib
 INSTALLS += target
+
+headers.path = $$OUTPUT_DIR/include/qjson
+headers.files = $$HEADERS
+INSTALLS += headers
 
 DEFINES += USE_SYSTEM_MALLOC
 
