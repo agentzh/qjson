@@ -76,15 +76,15 @@
 
 start: data {
               driver->m_result = $1;
-              qDebug() << "json_parser - parsing finished";
+              //qDebug() << "json_parser - parsing finished";
             };
 
 data: object {$$ = $1; }
       | array {$$ = $1; }
       | error
           {
-            qDebug()<< "json_parser - syntax error found, "
-                    << "forcing exit";
+            //qDebug()<< "json_parser - syntax error found, "
+                    //<< "forcing exit";
             YYABORT;
           }
       | END;
@@ -187,8 +187,8 @@ int yy::yylex(YYSTYPE *yylval, yy::location *yylloc, JSonDriver* driver)
   char buff [50];
   snprintf (buff, 50 * sizeof (char), "%i", ret);
 
-  qDebug() << "json_parser::yylex - calling scanner yylval==|" 
-           << yylval->toString() << "|, ret==|" << buff << "|";
+  //qDebug() << "json_parser::yylex - calling scanner yylval==|" 
+           //<< yylval->toString() << "|, ret==|" << buff << "|";
   
   return ret;
 }
