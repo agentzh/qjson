@@ -46,7 +46,7 @@ int JSonScanner::yylex(YYSTYPE* yylval, yy::location *yylloc)
   char ch;
   
   if (!m_io->isOpen()) {
-    qDebug() << "JSonScanner::yylex - io device is not open";
+    //qDebug() << "JSonScanner::yylex - io device is not open";
     return -1;
   }
 
@@ -55,18 +55,18 @@ int JSonScanner::yylex(YYSTYPE* yylval, yy::location *yylloc)
   do {
     bool ret;
     if (m_io->atEnd()) {
-      qDebug() << "JSonScanner::yylex - yy::json_parser::token::END";
+      //qDebug() << "JSonScanner::yylex - yy::json_parser::token::END";
       return yy::json_parser::token::END;
     }
     else
       ret = m_io->getChar(&ch);
 
     if (!ret) {
-      qDebug() << "JSonScanner::yylex - error reading from io device";
+      //qDebug() << "JSonScanner::yylex - error reading from io device";
       return -1;
     }
 
-    qDebug() << "JSonScanner::yylex - got |" << ch << "|";
+    //qDebug() << "JSonScanner::yylex - got |" << ch << "|";
     
     yylloc->columns();
     
@@ -84,13 +84,13 @@ int JSonScanner::yylex(YYSTYPE* yylval, yy::location *yylloc)
       if (QString::compare ("rue", buf, Qt::CaseInsensitive) == 0) {
         m_io->read (3);
         yylloc->columns(3);
-        qDebug() << "JSonScanner::yylex - TRUE_VAL";
+        //qDebug() << "JSonScanner::yylex - TRUE_VAL";
         return yy::json_parser::token::TRUE_VAL;
       }
       else if (QString::compare ("ull", buf, Qt::CaseInsensitive) == 0) {
         m_io->read (3);
         yylloc->columns(3);
-        qDebug() << "JSonScanner::yylex - NULL_VAL";
+        //qDebug() << "JSonScanner::yylex - NULL_VAL";
         return yy::json_parser::token::NULL_VAL;
       }
     }
@@ -102,7 +102,7 @@ int JSonScanner::yylex(YYSTYPE* yylval, yy::location *yylloc)
       if (QString::compare ("alse", buf, Qt::CaseInsensitive) == 0) {
         m_io->read (4);
         yylloc->columns(4);
-        qDebug() << "JSonScanner::yylex - FALSE_VAL";
+        //qDebug() << "JSonScanner::yylex - FALSE_VAL";
         return yy::json_parser::token::FALSE_VAL;
       }
     }
@@ -130,12 +130,12 @@ int JSonScanner::yylex(YYSTYPE* yylval, yy::location *yylloc)
         if (((buf != '"') && (buf != '\\') && (buf != '/') && 
             (buf != 'b') && (buf != 'f') && (buf != 'n') &&
             (buf != 'r') && (buf != 't') && (buf != 'u'))) {
-              qDebug() << "Just read" << buf;
-              qDebug() << "JSonScanner::yylex - error decoding escaped sequence";
+              //qDebug() << "Just read" << buf;
+              //qDebug() << "JSonScanner::yylex - error decoding escaped sequence";
               return -1;
         }
       } else {
-        qDebug() << "JSonScanner::yylex - error decoding escaped sequence : io error";
+        //qDebug() << "JSonScanner::yylex - error decoding escaped sequence : io error";
         return -1;
       }
     
@@ -167,18 +167,18 @@ int JSonScanner::yylex(YYSTYPE* yylval, yy::location *yylloc)
               bool ok;
               ushort hex_code = hex_digits.toShort ( &ok, 16);
               if (!ok) {
-                qDebug() << "error converting hex value to short:" << hex_digits;
+                //qDebug() << "error converting hex value to short:" << hex_digits;
                 return -1;
               } else {
                 QChar unicode_char (hex_code);
                 sequence.setUnicode(&unicode_char, 1);                
               }
             } else {
-              qDebug() << "Not an hex string:" << hex_digits;
+              //qDebug() << "Not an hex string:" << hex_digits;
               return -1;
             }
           } else {
-            qDebug() << "JSonScanner::yylex - error decoding escaped sequence : io error";
+            //qDebug() << "JSonScanner::yylex - error decoding escaped sequence : io error";
             return -1;
           }
           break;
@@ -192,31 +192,31 @@ int JSonScanner::yylex(YYSTYPE* yylval, yy::location *yylloc)
       }
 
       *yylval = QVariant(sequence);
-      qDebug() << "JSonScanner::yylex - yy::json_parser::token::WORD ("
+      //qDebug() << "JSonScanner::yylex - yy::json_parser::token::WORD ("
                << yylval->toString() << ")";
       return yy::json_parser::token::WORD;
     }
     else {
       *yylval = QVariant(QString(ch));
-      qDebug() << "JSonScanner::yylex - yy::json_parser::token::WORD ("
+      //qDebug() << "JSonScanner::yylex - yy::json_parser::token::WORD ("
              << yylval->toString() << ")";
       return yy::json_parser::token::WORD;
     }
   }
   else if ((isdigit(ch) != 0) && (m_quotmarkClosed)) {
     *yylval = QVariant(QString(ch));
-    qDebug() << "JSonScanner::yylex - yy::json_parser::token::DIGIT";
+    //qDebug() << "JSonScanner::yylex - yy::json_parser::token::DIGIT";
     return yy::json_parser::token::DIGIT;
   }
   else if (isalnum(ch) != 0) {
     *yylval = QVariant(QByteArray(&ch, 1));
-    qDebug() << "JSonScanner::yylex - yy::json_parser::token::WORD ("
+    //qDebug() << "JSonScanner::yylex - yy::json_parser::token::WORD ("
              << ch << ")";
     return yy::json_parser::token::WORD;
   }
   else if (ch == ':') {
     // set yylval
-    qDebug() << "JSonScanner::yylex - yy::json_parser::token::COLON";
+    //qDebug() << "JSonScanner::yylex - yy::json_parser::token::COLON";
     return yy::json_parser::token::COLON;
   }
   else if (ch == '"') {
@@ -227,47 +227,47 @@ int JSonScanner::yylex(YYSTYPE* yylval, yy::location *yylloc)
     if (m_quotmarkCount %2 == 0) {
       m_quotmarkClosed = true;
       m_quotmarkCount = 0;
-      qDebug() << "JSonScanner::yylex - yy::json_parser::token::QUOTMARKCLOSE";
+      //qDebug() << "JSonScanner::yylex - yy::json_parser::token::QUOTMARKCLOSE";
       return yy::json_parser::token::QUOTMARKCLOSE;
     }
     else {
       m_quotmarkClosed = false;
-      qDebug() << "JSonScanner::yylex - yy::json_parser::token::QUOTMARKOPEN";
+      //qDebug() << "JSonScanner::yylex - yy::json_parser::token::QUOTMARKOPEN";
       return yy::json_parser::token::QUOTMARKOPEN;
     }
   }
   else if (ch == ',') {
-    qDebug() << "JSonScanner::yylex - yy::json_parser::token::COMMA";
+    //qDebug() << "JSonScanner::yylex - yy::json_parser::token::COMMA";
     return yy::json_parser::token::COMMA;
   }
   else if (ch == '.') {
-    qDebug() << "JSonScanner::yylex - yy::json_parser::token::DOT";
+    //qDebug() << "JSonScanner::yylex - yy::json_parser::token::DOT";
     return yy::json_parser::token::DOT;
   }
   else if (ch == '-') {
-    qDebug() << "JSonScanner::yylex - yy::json_parser::token::MINUS";
+    //qDebug() << "JSonScanner::yylex - yy::json_parser::token::MINUS";
     return yy::json_parser::token::MINUS;
   }
   else if (ch == '[') {
-    qDebug() << "JSonScanner::yylex - yy::json_parser::token::SQUARE_BRACKET_OPEN";
+    //qDebug() << "JSonScanner::yylex - yy::json_parser::token::SQUARE_BRACKET_OPEN";
     return yy::json_parser::token::SQUARE_BRACKET_OPEN;
   }
   else if (ch == ']') {
-    qDebug() << "JSonScanner::yylex - yy::json_parser::token::SQUARE_BRACKET_CLOSE";
+    //qDebug() << "JSonScanner::yylex - yy::json_parser::token::SQUARE_BRACKET_CLOSE";
     return yy::json_parser::token::SQUARE_BRACKET_CLOSE;
   }
   else if (ch == '{') {
-    qDebug() << "JSonScanner::yylex - yy::json_parser::token::CURLY_BRACKET_OPEN";
+    //qDebug() << "JSonScanner::yylex - yy::json_parser::token::CURLY_BRACKET_OPEN";
     return yy::json_parser::token::CURLY_BRACKET_OPEN;
   }
   else if (ch == '}') {
-    qDebug() << "JSonScanner::yylex - yy::json_parser::token::CURLY_BRACKET_CLOSE";
+    //qDebug() << "JSonScanner::yylex - yy::json_parser::token::CURLY_BRACKET_CLOSE";
     return yy::json_parser::token::CURLY_BRACKET_CLOSE;
   }
 
   //unknown char!
   //TODO yyerror?
-  qDebug() << "JSonScanner::yylex - unknown char, returning -1";
+  //qDebug() << "JSonScanner::yylex - unknown char, returning -1";
   return -1;
 }
 
