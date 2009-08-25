@@ -1,3 +1,31 @@
+This is a fork of the QJson C++ Qt library by agentzh and xunxin.
+
+This fork fixes the UTF-8 bugs and the not-so-natural build system
+with qmake. And we'd expect it eventually merged back to the mainstream.
+
+Installation
+
+ $ qmake 'CONFIG-=debug' OUTPUT_DIR=/prefix/yqjson -r
+ $ make
+ $ make install
+
+If you want to install to the system, specify
+OUTPUT_DIR=/usr/local explicitly in the first step.
+
+The default value of OUTPUT_DIR is the current build directory.
+
+For RPM/Debian/... packaging, one can specify a "DESTDIR" while
+installing, for instance,
+
+ $ make install INSTALL_ROOT=/home/agentz/rpm/BUILDROOT/qjson
+
+The main motivation for this library is our VdomBrowser mainly for
+webpage information extraction based on VDOM:
+
+  http://github.com/agentzh/vdombrowser
+
+Here comes the original README for the mainstream QJson:
+
 QJson version 0.5.0
 -------------------------------------------------
 Date: April 3rd, 2009
