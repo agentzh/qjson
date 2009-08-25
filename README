@@ -1,7 +1,7 @@
 This is a fork of the QJson C++ Qt library by agentzh and xunxin.
 
 This fork fixes the UTF-8 bugs and the not-so-natural build system
-with qmake. And we'd expect it eventually merged back to the mainstream.
+with qmake. And we'd expect it eventually merged back to the mainstream in the near future :)
 
 Installation
 
