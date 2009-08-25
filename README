@@ -14,7 +14,7 @@ OUTPUT_DIR=/usr/local explicitly in the first step.
 
 The default value of OUTPUT_DIR is the current build directory.
 
-For RPM/Debian/... packaging, one can specify a "DESTDIR" while
+For RPM/Debian packaging, one can specify a "DESTDIR" while
 installing, for instance,
 
  $ make install INSTALL_ROOT=/home/agentz/rpm/BUILDROOT/qjson
